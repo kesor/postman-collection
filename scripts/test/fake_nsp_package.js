@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var resolve = require('path').resolve,
+var _ = require('lodash'),
+    resolve = require('path').resolve,
 
     loadJSON = function (file) {
         return JSON.parse(require('fs').readFileSync(file).toString());
@@ -35,7 +36,7 @@ catch (e) {
 // copy all dependencies to fake data and exclude exceptions
 dependencySources.forEach(function (src) {
     packageData[src] && (fakePackage[src] = {}) && Object.keys(packageData[src]).forEach(function (dep) {
-        nsprc.exclusions.indexOf(dep) === -1 && (fakePackage[src][dep] = packageData[src][dep]);
+        !_.includes(nsprc.exclusions, dep) && (fakePackage[src][dep] = packageData[src][dep]);
     });
 });
 

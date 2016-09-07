@@ -5,7 +5,7 @@ var fs = require('fs'),
 
     sdk = require('../../lib'),
     _if = function (module, modules) {
-        return _.indexOf(modules, module) > -1;
+        return _.includes(modules, module);
     },
 
     BASELESS_MODULES = ['Description'],
@@ -51,7 +51,7 @@ describe('collection module', function () {
             });
 
             !_if(meta.name, SCHEMALESS_MODULES) && it('must have an associated schema file', function () {
-                expect(schemas.indexOf(meta.file) > -1).to.be.ok();
+                expect(_.includes(schemas, meta.file)).to.be.ok();
             });
 
             it('must be constructed with no parameter', function () {
